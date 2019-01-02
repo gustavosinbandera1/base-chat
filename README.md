@@ -1,6 +1,12 @@
 # BaseChat
+Para crear el projecto debemos ejecutar en la consola del sistema
+`ng new base-chat` para crear un nuevo proyecto con angular `cli`.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+Despues de tener el proyecto creado tecleamos el comando `cd` y el nombre del proyecto, en este caso `base-chat`, ==> `cd base-chat`, posteriormente ejecutamos `code .` para abrir el proyecto con el editor de texto visual estudio code, el cual deben tener instalado en su sistema operativo.
+
+creamos los componentes iniciales de nuestro proyecto 
+ chat-form,chat-room,feed,login-form,signup-form,navbar,user-list,user-item  
+
 
 ## Development server
 
