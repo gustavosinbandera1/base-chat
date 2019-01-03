@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireList } from 'angularfire2/database';
+
+
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -19,9 +22,10 @@ import { UserItemComponent } from './user-item/user-item.component';
 
 import { appRoutes } from '../routes';
 
-import { AuthService } from './services/auth.service';
-import { ChatService } from './services/chat.service';
+import { AuthService } from './_services/auth.service';
+import { ChatService } from './_services/chat.service';
 import { environment } from '../environments/environment';
+import { MessageComponent } from './message/message.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,8 @@ import { environment } from '../environments/environment';
     SignupFormComponent,
     NavbarComponent,
     UserListComponent,
-    UserItemComponent
+    UserItemComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

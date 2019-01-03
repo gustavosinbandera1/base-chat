@@ -3,6 +3,6 @@ export class ChatMessage {
   email?: string;
   username?: string;
   message?: string;
-  timestamp?: Date = new Date();
+  timestamp?: string;
 
 }

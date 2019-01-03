@@ -2,22 +2,23 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_services/auth.service';
 import * as firebase from 'firebase/app';
 
-import { ChatMessage } from '../models/chat-message.model';
+import { ChatMessage } from '../_models/chat-message.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   user: any;
-  chatMessages: AngularFireList<ChatMessage>;
+  chatMessages: ChatMessage[];
   chatMessage: ChatMessage;
-  userName: Observable<string>;
+  userName: Observable<string>; /*return from auth*/
+  nameCollection: any = 'messages';
 
   constructor(
-    private db: AngularFireDatabase// ,
+    private afDb: AngularFireDatabase// ,
     // private afAuth: AngularFireAuth
   ) {
     /* this.afAuth.authState.subscribe(auth => {
@@ -25,7 +26,10 @@ export class ChatService {
         this.user = auth;
       }
     }); */
-    console.log(this.getMessages());
+     this.getCollection(this.nameCollection).valueChanges().subscribe(messages => {
+       this.chatMessages = messages;
+     });
+
    }
 
   sendMessage(msg: string) {
@@ -33,35 +37,28 @@ export class ChatService {
    /*  const email = this.user.email; */
    const email = 'gustavosinbandera1@hotmail.com';
 
-    this.chatMessages = this.getMessages();
-    console.log(ChatMessage);
-     /*this.chatMessages.push({
+    this.getCollection(this.nameCollection).push({
         message: msg,
         timestamp: timestamp,
-      // userName: this.userName,
-        username: 'GUstavogrisales',
+        username: 'nicolas grisales',
         email: email
-     });*/
-     console.log('called sendMessage');
+     });
   }
 
   getTimeStamp() {
     const now = new Date();
     const date = now.getUTCFullYear() + '/' +
-                 now.getUTCMonth() + '/' +
+                 now.getUTCMonth() + 1 + '/' +
                  now.getUTCDate();
 
     const time = now.getUTCHours() + ':' +
                  now.getMinutes() + ':' +
                  now.getSeconds();
-    return new Date((date + ' ' + time));
+    return (date + ' ' + time);
   }
 
-  getMessages(): AngularFireList<ChatMessage> {
-    /*query to create our message feed  binding */
-    console.log('buscando mensajes');
-
-    return this.db.list('messages');
-    // return this.db.list('/messages').valueChanges();
+/*return a observable AngularFireList  */
+  getCollection(nameCollection: string): AngularFireList<ChatMessage> {
+    return this.afDb.list(nameCollection);
   }
 }
