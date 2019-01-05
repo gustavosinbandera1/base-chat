@@ -25,7 +25,9 @@ export class AppComponent {
 
     // this.db.list('messages').valueChanges().subscribe(console.log);
      this.getMessages().valueChanges().subscribe(data => {
-       console.log('nuevo dato');
+       console.log('nuevo dato en app');
+       console.log(data);
+
      });
   }
 

@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
-import { AuthService } from '../_services/auth.service';
 import * as firebase from 'firebase/app';
 
 import { ChatMessage } from '../_models/chat-message.model';
@@ -11,24 +10,34 @@ import { ChatMessage } from '../_models/chat-message.model';
   providedIn: 'root'
 })
 export class ChatService {
-  user: any;
+  user: firebase.User;
   chatMessages: ChatMessage[];
   chatMessage: ChatMessage;
   userName: Observable<string>; /*return from auth*/
   nameCollection: any = 'messages';
+  //userId: string;
 
   constructor(
-    private afDb: AngularFireDatabase// ,
-    // private afAuth: AngularFireAuth
+    private afDb: AngularFireDatabase ,
+     private afAuth: AngularFireAuth
   ) {
-    /* this.afAuth.authState.subscribe(auth => {
+     this.afAuth.authState.subscribe(auth => {
       if (auth !== undefined && auth !== null ) {
         this.user = auth;
+        //this.userId = this.user.uid;
+
+        this.getUser().valueChanges().subscribe(userProfile => {
+          console.log('datos del ususario');
+          console.log(userProfile);
+        });
+
       }
-    }); */
-     this.getCollection(this.nameCollection).valueChanges().subscribe(messages => {
+    });
+
+
+    this.getCollection(this.nameCollection).valueChanges().subscribe(messages => {
        this.chatMessages = messages;
-     });
+    });
 
    }
 
@@ -40,8 +49,8 @@ export class ChatService {
     this.getCollection(this.nameCollection).push({
         message: msg,
         timestamp: timestamp,
-        username: 'nicolas grisales',
-        email: email
+        username: this.user.email,
+        email: this.user.email
      });
   }
 
@@ -60,5 +69,18 @@ export class ChatService {
 /*return a observable AngularFireList  */
   getCollection(nameCollection: string): AngularFireList<ChatMessage> {
     return this.afDb.list(nameCollection);
+  }
+
+  getUser() {
+    //const userId = this.user.uid;
+    const path = `/users/${this.user.uid}`;
+    return this.afDb.object(path);
+
+
+  }
+
+  getUsers() {
+    const path = '/users';
+    return this.afDb.list(path);
   }
 }

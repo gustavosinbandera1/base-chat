@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+/*Material Module */
+import { MaterialModule } from './modules/material.module';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireList } from 'angularfire2/database';
 
@@ -47,7 +50,8 @@ import { MessageComponent } from './message/message.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MaterialModule
     ],
   providers: [AuthService, ChatService],
   bootstrap: [AppComponent]

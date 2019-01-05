@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*
+body {
+  width: 100%;
+  min-height:100%;
+  max-height: 69%;
+  background: #eee;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
+}
+
+app-chatroom {
+  display: flex;
+  flex-direction: column;
+}
+
+app-navbar{
+  width: 100%;
+}
+
+app-chat-form{
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  overflow: none;
+}
+
+.message {
+display: block;
+height: auto;
+}
+*/
